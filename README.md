@@ -1,6 +1,7 @@
 # doar_app
 
-aplicativo projeto integrador VI
+
+This app was created to help fundraise for charities and was created in Flutter
 
 ## Getting Started
 
