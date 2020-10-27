@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1066717512245",
+    "firebase_url": "https://doacaocovid19.firebaseio.com",
+    "project_id": "doacaocovid19",
+    "storage_bucket": "doacaocovid19.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1066717512245:android:5b6cc1ba4c6fd26538a77c",
+        "android_client_info": {
+          "package_name": "univesp.grupo04.doacao.covid19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1066717512245-hpjvkjvmaqra5lou460r8rspfmvtsr8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDMm9L6rc4OLMWwIj1B4_cY4j8O2zcIIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1066717512245-hpjvkjvmaqra5lou460r8rspfmvtsr8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
