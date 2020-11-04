@@ -5,6 +5,7 @@ class Doar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Doar Protótipo',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
       home:HomeScreen(),

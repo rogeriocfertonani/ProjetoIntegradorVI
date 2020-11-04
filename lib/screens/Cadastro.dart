@@ -6,8 +6,6 @@ class Cadastro extends StatefulWidget {
   _CadastroState createState() => _CadastroState();
 }
 
-@override
-
 class _CadastroState extends State<Cadastro> {
   final _formKeyScreen = GlobalKey<FormState>();
   FocusNode myFocusNode;
@@ -47,14 +45,12 @@ class _CadastroState extends State<Cadastro> {
 //
 //        .setData(mapainclusao);
     DocumentReference documentReference = Firestore.instance
-        .collection("Instituicao")
+        .collection("Donatário")
         .document();
     documentReference.setData(mapainclusao).whenComplete(() => {
       _limparFormulario(),
       _showDialog()});
-    print("cadastrou!!!!!!!");
   }
-
 
   void _showDialog() {
     showDialog(
@@ -144,8 +140,6 @@ class _CadastroState extends State<Cadastro> {
                 RaisedButton(onPressed: cadastrar,
                   child: Text('Cadastrar'),
 
-
-
                 )
 
 
@@ -171,68 +165,3 @@ class _CadastroState extends State<Cadastro> {
   }
 }
 
-class Cadastro_old extends StatelessWidget {
-
-  void cadastrar(){
-
-    Firestore.instance
-        .collection("Instituicao")
-        .document("endereco")
-        .setData({"rua":"Angelina","numero":40});
-
-    print("cadastrou!!!!!!!");
-
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Scaffold(
-          appBar: AppBar(title:Text('Cadastro')),
-          body:SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-            child: Form(child:Column(
-              children: [
-
-                TextFormField(
-                  keyboardType:TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Nome',
-                  ),),
-
-                TextFormField(
-                  keyboardType:TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Endereço',
-                  ),),
-                TextFormField(
-                  keyboardType:TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: 'email',
-                  ),),
-                TextFormField(
-                  keyboardType:TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'CPF',
-                  ),),
-                RaisedButton(onPressed: cadastrar,
-                  child: Text('Cadastrar'),)
-
-
-              ],
-
-            ),
-            ),
-
-          ),
-
-        ),
-
-
-
-      ],
-    );
-  }
-}
