@@ -28,12 +28,10 @@ class _State extends State<Doacoes> {
 
   retornaSnapshot() {
     var stream = Firestore.instance.collection("Doações").snapshots();
-    print("caralho " + stream.toString());
-
 
     stream.forEach((element) {
       element.documents.forEach(
-              (element) {print("gggggggggggg" + element["Instituicao"]);
+              (element) {print(element["Instituicao"]);
 
               });});
 
@@ -53,7 +51,7 @@ class _State extends State<Doacoes> {
           Scaffold(
               appBar: AppBar(title: Text('Doações disponíveis')),
               body:
-              Center(
+              Container(
                       child: Scrollbar(
 
                           child:
