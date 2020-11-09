@@ -53,7 +53,6 @@ class _State extends State<Doacoes> {
               body:
               Container(
                       child: Scrollbar(
-
                           child:
                             StreamBuilder(
                                 stream: retornaSnapshot(),
@@ -68,13 +67,20 @@ class _State extends State<Doacoes> {
                                             return Row(
                                                 children: <Widget>[
                                                   Expanded(
+
                                                     child: Card(
+
+                                                      child:Material(
+                                                        elevation: 4.0,
+                                                        borderRadius: BorderRadius.circular(5.0),
+                                                      color: index%2==0?Colors.lime:Colors.black26,
                                                       child: ListTile(
                                                         leading: Icon(Icons.done),
                                                         title: Text(
                                                             ds["Instituicao"]),
                                                         subtitle: Text(ds["tipo"]),
                                                       ),
+                                                      )
                                                     ),
                                                   ),
 
