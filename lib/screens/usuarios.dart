@@ -2,109 +2,85 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class Doacoes extends StatefulWidget {
+class Usuarios extends StatefulWidget {
   @override
   _State createState() => _State();
 }
 
-class _State extends State<Doacoes> {
+class _State extends State<Usuarios> {
 
-  void recuperaDoacoes() async {
+  void recuperaDonatarios() async {
 //      QuerySnapshot querySnapshot = await Firestore.instance.collection("Doações")
 //          .getDocuments();
 //      for(DocumentSnapshot item in querySnapshot.documents){
 //        var dados = item.data;
-//        print("doacoes" + dados.toString());
+//        print("Usuarios" + dados.toString());
 //
 //      }
     Firestore.instance.collection("Doações").snapshots().listen(
             (snapshot) {
           for (DocumentSnapshot item in snapshot.documents) {
             var dados = item.data;
-            print("doacoes" + dados.toString());
+            print("Usuarios" + dados.toString());
           }
         });
   }
 
-  retornaSnapshot() {
-    var stream = Firestore.instance.collection("Doações").snapshots();
-    print("caralho " + stream.toString());
-
-
-    stream.forEach((element) {
-      element.documents.forEach(
-              (element) {print("gggggggggggg" + element["Instituicao"]);
-
-              });});
-
-
-
-    return stream;
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
-    //recuperaDoacoes();
+    //recuperaDonatarios();
 //    return Container();
     return Stack(
         children: <Widget>[
           Scaffold(
-              appBar: AppBar(title: Text('Doações disponíveis')),
+              appBar: AppBar(title: Text('Usuários Cadastrados')),
               body:
               Center(
                       child: Scrollbar(
-
-                          child:
-                            StreamBuilder(
-                                stream: retornaSnapshot(),
+                          child: StreamBuilder(
+                                stream: Firestore.instance.collection("Donatário").snapshots(),
                                 builder: (context, snapshot) {
-                                  return Scrollbar(
-                                      child:ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: snapshot.data.documents.length,
-                                          itemBuilder: (context, index) {
-                                            DocumentSnapshot ds = snapshot.data
-                                                .documents[index];
-                                            return Row(
-                                                children: <Widget>[
-                                                  Expanded(
-                                                    child: Card(
-                                                      child: ListTile(
-                                                        leading: Icon(Icons.done),
-                                                        title: Text(
-                                                            ds["Instituicao"]),
-                                                        subtitle: Text(ds["tipo"]),
-                                                      ),
+                                  return ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.documents.length,
+                                      itemBuilder: (context, index) {
+                                        DocumentSnapshot ds = snapshot.data
+                                            .documents[index];
+                                        return Row(
+
+                                            children: <Widget>[
+                                              Expanded(
+                                                  child:Card(
+                                                    child: ListTile(
+                                                      leading: Icon(Icons.verified_user),
+                                                      title: Text(ds["Nome"]),
+                                                      subtitle: Text(ds["email"]),
                                                     ),
                                                   ),
+                                              ),
 
-                                                ]
+                                            ]
 
-                                            );
-                                          }
-                                      )
+                                        );
+                                      }
                                   );
-                                  if(snapshot.hasData) {
-                                }
-                                else {print("deu merda");return Container(width: 0.0,height:0.0);}
                                 }
 
 
                             )
+                            )
 
 
                       )
-                  //)
+
               )
 
-          )
         ]
     );
   }
 }
-//class Doacoes_old extends StatelessWidget {
+//class Usuarios_old extends StatelessWidget {
 //  @override
 //  Widget build(BuildContext context) {
 //    return Stack(

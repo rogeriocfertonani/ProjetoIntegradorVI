@@ -1,3 +1,4 @@
+import 'package:doar_app/screens/usuarios.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -66,6 +67,8 @@ class _CadastroState extends State<Cadastro> {
               child: new Text("Fechar"),
               onPressed: () {
                 Navigator.of(context).pop();
+                Navigator.push(context,
+                  MaterialPageRoute(builder:(context)=>Usuarios()));
               },
             ),
           ],
