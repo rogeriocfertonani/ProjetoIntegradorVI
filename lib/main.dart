@@ -1,5 +1,7 @@
+import 'package:doar_app/screens/LoginUsuario.dart';
 import 'package:doar_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+
 void main()=> runApp(new Doar());
 class Doar extends StatelessWidget {
   @override
@@ -8,7 +10,7 @@ class Doar extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Doar Protótipo',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home:HomeScreen(),
+      home:LoginUsuario(),
 
         );
   }

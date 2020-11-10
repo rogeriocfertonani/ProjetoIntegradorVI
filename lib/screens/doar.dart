@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:doar_app/utils/utils.dart';
 
 class Doar extends StatefulWidget {
   @override
@@ -90,7 +91,8 @@ class _DoarState extends State<Doar> {
     return  Stack(
       children: <Widget>[
         Scaffold(
-          appBar: AppBar(title:Text('Doar')),
+          appBar: AppBar(title:Text('Doar'),
+          ),
           body:SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
             child: Form(
@@ -131,6 +133,25 @@ class _DoarState extends State<Doar> {
 
               ),
             ),
+
+          ),
+          bottomNavigationBar: BottomAppBar(
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                icon: Icon(Icons.home),
+                onPressed: (){sairAplicacao(context);},
+                ),
+
+
+                Icon(Icons.exit_to_app),
+
+              ],
+
+            )
+
+
+
 
           ),
 
