@@ -1,7 +1,9 @@
 import 'package:doar_app/screens/home_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 
 
 
@@ -77,18 +79,106 @@ class _LoginUsuarioState extends State<LoginUsuario> {
     this.senha = endereco;
   }
 
-  @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Bem vindo ',
+      home: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+              colorFilter: ColorFilter.mode(Colors.blueGrey, BlendMode.lighten),
+                image: AssetImage("imagens/hand-giving-soup-bowl-needy-person.jpg"),
+                fit: BoxFit.cover)),
+
+        child:Scaffold(
+          backgroundColor: Colors.transparent,
+
+          appBar: AppBar(title:Text('Login / Registro'),
+           //backgroundColor: Colors.transparent,
+          ),
+          body:SingleChildScrollView(
+            padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
+            child:Form(
+              key:_formKeyScreen,
+
+              child:Column(
+
+
+                children: [
+//                  Positioned.fill(child: Image(image:AssetImage('imagens/cacildis.jpg'),
+//                  fit:BoxFit.fill)),
+//                //Image.asset('imagens/cacildis.jpg'),
+
+
+                  TextFormField(
+                      keyboardType:TextInputType.text,
+                      focusNode: myFocusNode,
+                      decoration: InputDecoration(
+                        labelText: 'Email:',
+                      ),
+                      onChanged:(String email){ _getEmail(email);}
+                  ),TextFormField(
+                      keyboardType:TextInputType.visiblePassword,
+                      obscureText: true,
+                      validator: (value) => "teste",
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.lock),
+                        labelText: 'Senha:',
+
+                      ),
+                      onChanged:(String senha){ _getSenha(senha);}
+                  ),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [RaisedButton(onPressed: Logar,
+                    color: Colors.blue,
+                    child: Text('Logar'),
+
+                  ),
+
+                  InkWell(
+                    hoverColor: Colors.red,
+                    child:
+
+                    Text("Registrar",
+                         style : TextStyle(fontSize: 12,fontStyle: FontStyle.italic)
+
+                    ),
+                    onTap: cadastrar,
+                  )])
+
+                ],
+
+              ),
+            ),
+
+
+          ),
+
+        ),
+      ),
+    );
+  }//  @override
+
+  Widget build_old(BuildContext context) {
     return  Stack(
       children: <Widget>[
         Scaffold(
+
           appBar: AppBar(title:Text('Login / Registro')),
           body:SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-            child: Form(
+            child:Form(
               key:_formKeyScreen,
+
               child:Column(
+
                 children: [
+
+//                  Positioned.fill(child: Image(image:AssetImage('imagens/cacildis.jpg'),
+//                  fit:BoxFit.fill)),
+//                //Image.asset('imagens/cacildis.jpg'),
+
                   TextFormField(
                       keyboardType:TextInputType.text,
                       focusNode: myFocusNode,
@@ -122,6 +212,7 @@ class _LoginUsuarioState extends State<LoginUsuario> {
 
               ),
             ),
+
 
           ),
 

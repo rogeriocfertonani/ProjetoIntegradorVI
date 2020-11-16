@@ -14,7 +14,7 @@ class Home extends StatelessWidget {
     return Stack(
 
       children: <Widget>[
-        Scaffold(appBar: AppBar(title:Text('Doar'),
+        Scaffold(appBar: AppBar(title:Text('Opções'),
         ),
           body:
 
@@ -25,13 +25,9 @@ class Home extends StatelessWidget {
           SingleChildScrollView(
             padding: EdgeInsets.fromLTRB(45.0, 80.0, 10.0, 10.0),
             child: Row(
-
               children: [
-
                 Column(
-
                   children: [
-
                     GestureDetector(
                       child:   IconButton(
 
@@ -41,13 +37,9 @@ class Home extends StatelessWidget {
                       onTap: (){
                        Navigator.push(context,
                            MaterialPageRoute(builder:(context)=>Cadastro()),);
-
-
                       },
                     ),
-
                     Text('Cadastro'),
-
                     GestureDetector(
                       child:IconButton(
                         icon: Icon(Icons.monetization_on),
@@ -81,12 +73,16 @@ class Home extends StatelessWidget {
                       onTap:( ){Navigator.push(context,
                         MaterialPageRoute(builder:(context)=>Instituicao()),);},
                     ),
-
-
-
-
-
-                    Text('Instituições')
+                    Text('Instituições'),
+                    GestureDetector(
+                      child:
+                      IconButton(
+                        icon: Icon(Icons.add_shopping_cart),
+                        iconSize: 100.0,),
+                      onTap:( ){Navigator.push(context,
+                        MaterialPageRoute(builder:(context)=>Instituicao()),);},
+                    ),
+                    Text('Doações recebidas')
 
                   ],
                 )

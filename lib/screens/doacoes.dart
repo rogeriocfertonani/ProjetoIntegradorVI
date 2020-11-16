@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Doacoes extends StatefulWidget {
+
   @override
   _State createState() => _State();
 }
 
 class _State extends State<Doacoes> {
+  bool checkboxvalue = false;
+  List lista = List();
 
   void recuperaDoacoes() async {
 //      QuerySnapshot querySnapshot = await Firestore.instance.collection("Doações")
@@ -17,6 +21,8 @@ class _State extends State<Doacoes> {
 //        print("doacoes" + dados.toString());
 //
 //      }
+
+
     Firestore.instance.collection("Doações").snapshots().listen(
             (snapshot) {
           for (DocumentSnapshot item in snapshot.documents) {
@@ -26,14 +32,30 @@ class _State extends State<Doacoes> {
         });
   }
 
-  retornaSnapshot() {
+  retornaSnapshot() async{
     var stream = Firestore.instance.collection("Doações").snapshots();
 
-    stream.forEach((element) {
-      element.documents.forEach(
-              (element) {print(element["Instituicao"]);
+//    String valoresbool =  List(stream.sna);
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
-              });});
+    print(user.uid + " cacildis");
+
+
+
+
+
+
+      stream.forEach((element) {
+
+      element.documents.forEach(
+                (element) {
+//                  print(element["Instituicao"]);
+                  print(element.documentID);
+
+                 lista.add(false);
+              }
+
+              );});
 
 
 
@@ -67,18 +89,33 @@ class _State extends State<Doacoes> {
                                             return Row(
                                                 children: <Widget>[
                                                   Expanded(
-
-                                                    child: Card(
-
+                                                    child:Card(
                                                       child:Material(
                                                         elevation: 4.0,
                                                         borderRadius: BorderRadius.circular(5.0),
-                                                      color: index%2==0?Colors.lime:Colors.black26,
-                                                      child: ListTile(
-                                                        leading: Icon(Icons.done),
+                                                      color: index%2==0?Colors.blue:Colors.black26,
+                                                        child: ListTile(
+                                                        leading:
+                                                        Checkbox(value: lista[index],
+                                                            key: Key(index.toString()),
+                                                            onChanged: (bool value){
+                                                          setState(() {
+                                                            lista[index] = value;
+
+                                                          });
+
+
+
+
+
+                                                          },
+
+
+                                                        ),
                                                         title: Text(
                                                             ds["Instituicao"]),
                                                         subtitle: Text(ds["tipo"]),
+
                                                       ),
                                                       )
                                                     ),
