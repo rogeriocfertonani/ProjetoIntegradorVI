@@ -105,11 +105,6 @@ class _LoginUsuarioState extends State<LoginUsuario> {
 
 
                 children: [
-//                  Positioned.fill(child: Image(image:AssetImage('imagens/cacildis.jpg'),
-//                  fit:BoxFit.fill)),
-//                //Image.asset('imagens/cacildis.jpg'),
-
-
                   TextFormField(
                       keyboardType:TextInputType.text,
                       focusNode: myFocusNode,
@@ -176,9 +171,6 @@ class _LoginUsuarioState extends State<LoginUsuario> {
 
                 children: [
 
-//                  Positioned.fill(child: Image(image:AssetImage('imagens/cacildis.jpg'),
-//                  fit:BoxFit.fill)),
-//                //Image.asset('imagens/cacildis.jpg'),
 
                   TextFormField(
                       keyboardType:TextInputType.text,

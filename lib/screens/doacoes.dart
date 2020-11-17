@@ -38,19 +38,12 @@ class _State extends State<Doacoes> {
   retornaUserId() async {
     String hashusuario;
     await FirebaseAuth.instance.currentUser().then((value) => user = value);
-    print("cacildis " + user.uid.toString());
     return user.uid.toString();
 
   }
 
   retornaSnapshot()  {
     var stream   =  Firestore.instance.collection("Doações").snapshots();
-//    var stream = await Firestore.instance.collection("Doações").snapshots();
-
-//    String valoresbool =  List(stream.sna);
-
-//    print(user.uid + " cacildis");
-//
       stream.forEach((element) {
 
       element.documents.forEach(
