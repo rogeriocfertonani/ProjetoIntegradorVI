@@ -71,16 +71,17 @@ class _LoginUsuarioState extends State<LoginUsuario> {
   String nome,senha,email,CNPJ;
 
   _getEmail(email){
-    this.email = email;
+    this.email = email.trim();
 //    this.email = "cacilds@gamil.com";
 
   }
   _getSenha(endereco){
-    this.senha = endereco;
+    this.senha = endereco.trim();
   }
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Bem vindo ',
       home: Container(
         decoration: BoxDecoration(

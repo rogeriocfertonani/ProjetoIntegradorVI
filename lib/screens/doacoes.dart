@@ -1,16 +1,18 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class Doacoes extends StatefulWidget {
-
   @override
   _State createState() => _State();
 }
 
 class _State extends State<Doacoes> {
   bool checkboxvalue = false;
+  FirebaseUser user;
   List lista = List();
 
   void recuperaDoacoes() async {
@@ -32,33 +34,34 @@ class _State extends State<Doacoes> {
         });
   }
 
-  retornaSnapshot() async{
-    var stream = Firestore.instance.collection("Doações").snapshots();
+
+  retornaUserId() async {
+    String hashusuario;
+    await FirebaseAuth.instance.currentUser().then((value) => user = value);
+    print("cacildis " + user.uid.toString());
+    return user.uid.toString();
+
+  }
+
+  retornaSnapshot()  {
+    var stream   =  Firestore.instance.collection("Doações").snapshots();
+//    var stream = await Firestore.instance.collection("Doações").snapshots();
 
 //    String valoresbool =  List(stream.sna);
-    FirebaseUser user = await FirebaseAuth.instance.currentUser();
 
-    print(user.uid + " cacildis");
-
-
-
-
-
-
+//    print(user.uid + " cacildis");
+//
       stream.forEach((element) {
 
       element.documents.forEach(
                 (element) {
-//                  print(element["Instituicao"]);
-                  print(element.documentID);
+                  print(element["Instituicao"]);
+//                  print(element.documentID);
 
                  lista.add(false);
               }
 
               );});
-
-
-
     return stream;
   }
 
@@ -74,66 +77,62 @@ class _State extends State<Doacoes> {
               appBar: AppBar(title: Text('Doações disponíveis')),
               body:
               Container(
-                      child: Scrollbar(
-                          child:
-                            StreamBuilder(
-                                stream: retornaSnapshot(),
-                                builder: (context, snapshot) {
-                                  return Scrollbar(
-                                      child:ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: snapshot.data.documents.length,
-                                          itemBuilder: (context, index) {
-                                            DocumentSnapshot ds = snapshot.data
-                                                .documents[index];
-                                            return Row(
-                                                children: <Widget>[
-                                                  Expanded(
-                                                    child:Card(
-                                                      child:Material(
-                                                        elevation: 4.0,
-                                                        borderRadius: BorderRadius.circular(5.0),
+                  child: Scrollbar(
+                        child:
+//                          Column(
+//                          children: <Widget>[
+                          StreamBuilder(
+                              stream: retornaSnapshot(),
+                              builder: (context, snapshot) {
+                                return Scrollbar(
+                                  child:ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: snapshot.data.documents.length,
+                                      itemBuilder: (context, index) {
+                                        DocumentSnapshot ds = snapshot.data.documents[index];
+                                        return Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child:Card(
+                                                    child:Material(
+                                                      elevation: 4.0,
+                                                      borderRadius: BorderRadius.circular(5.0),
                                                       color: index%2==0?Colors.blue:Colors.black26,
-                                                        child: ListTile(
+                                                      child: ListTile(
                                                         leading:
                                                         Checkbox(value: lista[index],
-                                                            key: Key(index.toString()),
-                                                            onChanged: (bool value){
-                                                          setState(() {
-                                                            lista[index] = value;
-
-                                                          });
-
-
-
-
-
+                                                          key: Key(index.toString()),
+                                                          onChanged: (bool value){
+                                                            setState(() {
+                                                              procederPedidoDeDoacao(ds.documentID.toString(),value);
+                                                              lista[index] = value;
+                                                            });
                                                           },
-
-
                                                         ),
                                                         title: Text(
                                                             ds["Instituicao"]),
                                                         subtitle: Text(ds["tipo"]),
 
                                                       ),
-                                                      )
-                                                    ),
-                                                  ),
+                                                    )
+                                                ),
+                                              ),
 
-                                                ]
+                                            ]
 
-                                            );
-                                          }
-                                      )
-                                  );
-                                  if(snapshot.hasData) {
+                                        );
+                                      }
+                                  ),
+
+
+                                );
+                                if(snapshot.hasData) {
                                 }
-                                else {print("deu merda");return Container(width: 0.0,height:0.0);}
-                                }
+                                else {print("erro");return Container(width: 0.0,height:0.0);}
+                              }
 
 
-                            )
+                          )
 
 
                       )
@@ -143,6 +142,24 @@ class _State extends State<Doacoes> {
           )
         ]
     );
+  }
+
+   procederPedidoDeDoacao (String codigodoacao, bool value) async{
+    String usuario = await retornaUserId();
+    Map<String,dynamic> mapainclusao;
+    mapainclusao = {
+      "codigodoacao": codigodoacao,
+      "codigodonatario":usuario
+    };
+
+    DocumentReference documentReference = Firestore.instance
+        .collection("DoacaoEfetuada").document();
+    documentReference.setData(mapainclusao);
+//documentReference.setData(mapainclusao).whenComplete(() => {
+//      _limparFormulario(),
+//      _showDialog()});
+
+
   }
 }
 //class Doacoes_old extends StatelessWidget {
